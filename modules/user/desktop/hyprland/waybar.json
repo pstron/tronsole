@@ -1,0 +1,363 @@
+{
+  "mode": "dock",
+  "position": "top",
+  "layer": "top",
+  "width": 0,
+  "height": 0,
+  "margin": "0px",
+  "spacing": 0,
+  "reload_style_on_change": true,
+  "modules-left": [
+    "custom/user",
+    "custom/left#bg-1",
+    "hyprland/workspaces",
+    "custom/right#bg-1",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "custom/left#bg-1",
+    "temperature",
+    "custom/left#bg-2",
+    "memory",
+    "custom/left#bg-3",
+    "cpu",
+    "custom/left#inverse",
+    "custom/left#accent",
+    "custom/distro",
+    "custom/right#accent",
+    "custom/right#inverse",
+    "idle_inhibitor",
+    "clock#time",
+    "custom/right#bg-3",
+    "clock#date",
+    "custom/right#bg-2",
+    "network",
+    "bluetooth",
+    "custom/right#bg-1"
+  ],
+  "modules-right": [
+    "custom/left#bg-1",
+    "group/pulseaudio",
+    "custom/left#bg-2",
+    "backlight",
+    "custom/left#bg-3",
+    "battery",
+    "custom/left#inverse",
+    "tray",
+    "custom/left#bg-1",
+    "custom/power"
+  ],
+  "hyprland/workspaces": {
+    "persistent-workspaces": {
+      "*": 5
+    },
+    "format": "{id}",
+    "sort-by": "number",
+    "on-click": "hyprctl dispatch 'hl.dsp.focus({ workspace = {id} })'",
+    "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({ workspace = \"e-1\" })'",
+    "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({ workspace = \"e+1\" })'",
+    "cursor": true,
+    "tooltip": false
+  },
+  "hyprland/window": {
+    "rewrite": {
+      "": "Desktop",
+      "ghostty": "Terminal",
+      "alacritty": "Terminal",
+      "zsh": "Terminal"
+    },
+    "swap-icon-label": false
+  },
+  "hyprland/language": {
+    "format-en": " en"
+  },
+  "custom/user": {
+    "format": "󰌽",
+    "tooltip": false
+  },
+  "custom/distro": {
+    "exec": "sh -c 'id=$(sed -n \"s/^ID=//p\" /etc/os-release | tr -d \"\\\"\"); case \"$id\" in arch) printf \"󰣇\";; nixos) printf \"\";; *) printf \"\";; esac'",
+    "interval": 3600,
+    "on-click": "wofi --show drun -replace",
+    "tooltip": false
+  },
+  "custom/left#accent": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/left#bg-1": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/left#bg-2": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/left#bg-3": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/left#inverse": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right#accent": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right#bg-1": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right#bg-2": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right#bg-3": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right#inverse": {
+    "format": "",
+    "tooltip": false
+  },
+  "temperature": {
+    "interval": 10,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": [
+      "󱃃",
+      "󰔏",
+      "󱃂"
+    ],
+    "critical-threshold": 90,
+    "format-critical": "󰀦 {temperatureC}°C",
+    "min-length": 8,
+    "max-length": 8,
+    "tooltip-format": "CPU Temperature: {temperatureC}°C"
+  },
+  "memory": {
+    "interval": 10,
+    "format": "󰘚 {percentage}%",
+    "states": {
+      "warning": 75,
+      "critical": 90
+    },
+    "format-warning": "󰀧 {percentage}%",
+    "format-critical": "󰀧 {percentage}%",
+    "min-length": 7,
+    "max-length": 7,
+    "tooltip-format": "Memory Used: {used:0.0f}/{total:0.0f} GiB"
+  },
+  "cpu": {
+    "interval": 10,
+    "format": "󰍛 {usage}%",
+    "states": {
+      "warning": 75,
+      "critical": 90
+    },
+    "format-warning": "󰀨 {usage}%",
+    "format-critical": "󰀨 {usage}%",
+    "min-length": 7,
+    "max-length": 7,
+    "tooltip": false
+  },
+  "disk": {
+    "format": " {percentage_used}% ",
+    "path": "/"
+  },
+  "idle_inhibitor": {
+    "start-activated": false,
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰈈",
+      "deactivated": "󰈉"
+    },
+    "min-length": 3,
+    "max-length": 3,
+    "tooltip-format-activated": "<b>Idle Inhibitor</b>: Activated",
+    "tooltip-format-deactivated": "<b>Idle Inhibitor</b>: Deactivated"
+  },
+  "clock#time": {
+    "format": "{:%H:%M}",
+    "min-length": 5,
+    "max-length": 5,
+    "tooltip-format": "<b>Standard Time</b>: <span text_transform='lowercase'>{:%I:%M %p}</span>"
+  },
+  "clock#date": {
+    "format": "󰸗 {:%m-%d}",
+    "min-length": 8,
+    "max-length": 8,
+    "actions": {
+      "on-click": "mode"
+    },
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "format": {
+        "months": "<span alpha='100%'><b>{}</b></span>",
+        "days": "<span alpha='85%'>{}</span>",
+        "weekdays": "<span alpha='60%'><i>{}</i></span>",
+        "today": "<span alpha='100%'><b><u>{}</u></b></span>"
+      }
+    },
+    "tooltip-format": "{calendar}"
+  },
+  "network": {
+    "interval": 10,
+    "format": "󰤨",
+    "format-wifi": "{icon}",
+    "format-icons": [
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "format-disconnected": "󰤯",
+    "format-disabled": "󰤮",
+    "format-ethernet": "󰈀",
+    "min-length": 2,
+    "max-length": 2,
+    "on-click": "sh -c 'exec \"${TERMINAL:-ghostty}\" -e nmtui'",
+    "on-click-right": "nmcli radio wifi off",
+    "tooltip-format": "<b>Gateway</b>: {gwaddr}",
+    "tooltip-format-wifi": "<b>Network</b>: {essid}\n<b>IP Addr</b>: {ipaddr}/{cidr}\n<b>Strength</b>: {signalStrength}%\n<b>Frequency</b>: {frequency} GHz",
+    "tooltip-format-disconnected": "Wi-Fi Disconnected",
+    "tooltip-format-disabled": "Wi-Fi Off",
+    "tooltip-format-ethernet": "<b>Interface</b>: {ifname}"
+  },
+  "bluetooth": {
+    "format": "󰂯",
+    "format-on": "󰂰",
+    "format-connected": "󰂱",
+    "format-off": "󰂲",
+    "format-disabled": "󰂲",
+    "min-length": 2,
+    "max-length": 2,
+    "on-click": "sh -c 'exec \"${TERMINAL:-ghostty}\" -e bluetoothctl'",
+    "on-click-right": "bluetoothctl power off",
+    "tooltip-format": "Device Addr: {device_address}",
+    "tooltip-format-on": "Bluetooth Disconnected",
+    "tooltip-format-connected": "Device: {device_alias}",
+    "tooltip-format-off": "Bluetooth Off",
+    "tooltip-format-disabled": "Bluetooth Disabled",
+    "tooltip-format-connected-battery": "Device: {device_alias}\nBattery: {device_battery_percentage}%",
+    "tooltip-format-enumerate-connected": "Device: {device_alias}",
+    "tooltip-format-enumerate-connected-battery": "Device: {device_alias}\nBattery: {device_battery_percentage}%"
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "min-length": 7,
+    "max-length": 7,
+    "on-scroll-up": "brightnessctl -e4 -n2 set 5%+",
+    "on-scroll-down": "brightnessctl -e4 -n2 set 5%-",
+    "tooltip-format": "Screen Brightness"
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-icons": [
+      "󰂎",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ],
+    "format-charging": "󰉁 {capacity}%",
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
+    "max-length": 7,
+    "min-length": 7,
+    "tooltip-format": "<b>Discharging</b>: {time}",
+    "tooltip-format-charging": "<b>Charging</b>: {time}",
+    "format-time": "{H}h {M}min",
+    "events": {
+      "on-discharging-warning": "notify-send 'Battery Low (20%)' -u critical -i 'battery-020' -h string:x-canonical-private-synchronous:battery",
+      "on-discharging-critical": "notify-send 'Battery Critical (10%)' -u critical -i 'battery-010' -h string:x-canonical-private-synchronous:battery",
+      "on-charging-100": "notify-send 'Battery Full (100%)' -i 'battery-100-charged' -h string:x-canonical-private-synchronous:battery"
+    }
+  },
+  "mpris": {
+    "format": "{player_icon} {title} - {artist}",
+    "player-icons": {
+      "default": "󰐊"
+    },
+    "format-paused": "{status_icon} {title} - {artist}",
+    "status-icons": {
+      "paused": "󰏤"
+    },
+    "max-length": 1000,
+    "tooltip-format": "Playing: {title} - {artist}",
+    "tooltip-format-paused": "Paused: {title} - {artist}"
+  },
+  "group/pulseaudio": {
+    "modules": [
+      "pulseaudio#output",
+      "pulseaudio#input"
+    ],
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-left-to-right": false
+    }
+  },
+  "pulseaudio#output": {
+    "format": "{icon} {volume}%",
+    "format-muted": "{icon} {volume}%",
+    "format-icons": {
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ],
+      "default-muted": "󰝟",
+      "headphone": "󰋋",
+      "headphone-muted": "󰟎",
+      "headset": "󰋎",
+      "headset-muted": "󰋐"
+    },
+    "min-length": 7,
+    "max-length": 7,
+    "on-click": "pavucontrol",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "tooltip-format": "<b>Output Device</b>: {desc}"
+  },
+  "pulseaudio#input": {
+    "format": "{format_source}",
+    "format-source": "󰍬 {volume}%",
+    "format-source-muted": "󰍭 {volume}%",
+    "min-length": 7,
+    "max-length": 7,
+    "on-click": "pavucontrol",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
+    "tooltip-format": "<b>Input Device</b>: {desc}"
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 6,
+    "cursor": true,
+    "show-passive-items": true
+  },
+  "custom/power": {
+    "format": "󰐥",
+    "on-click": "sh -c 'choice=$(printf \"%s\\n\" Lock Logout Suspend Hibernate Reboot Shutdown | wofi --dmenu --prompt Power); case \"$choice\" in Lock) hyprlock ;; Logout) uwsm stop ;; Suspend) systemctl suspend ;; Hibernate) systemctl hibernate ;; Reboot) systemctl reboot ;; Shutdown) systemctl poweroff ;; esac'",
+    "tooltip-format": "Power Menu"
+  }
+}

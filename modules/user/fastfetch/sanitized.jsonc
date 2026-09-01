@@ -1,0 +1,111 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "source": "auto",
+    "height": 18,
+    "padding": {
+      "top": 3,
+      "left": 2
+    }
+  },
+  "display": {
+    "separator": " "
+  },
+  "modules": [
+    "break",
+    "break",
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[1;34mpstron\u001b[0m@\u001b[1;34mfeynmach\u001b[0m"
+    },
+    "break",
+    {
+      "type": "os",
+      "key": " ",
+      "keycolor": "34"
+    },
+    {
+      "type": "kernel",
+      "key": " ",
+      "keycolor": "34"
+    },
+    {
+      "type": "packages",
+      "key": " ",
+      "keycolor": "34"
+    },
+    {
+      "type": "shell",
+      "key": " ",
+      "keycolor": "34"
+    },
+    {
+      "type": "terminal",
+      "key": " ",
+      "keycolor": "34"
+    },
+    {
+      "type": "wm",
+      "key": " ",
+      "keycolor": "34"
+    },
+    {
+      "type": "cursor",
+      "key": " ",
+      "keyColor": "34"
+    },
+    {
+      "type": "terminalfont",
+      "key": " ",
+      "keyColor": "34"
+    },
+    {
+      "type": "uptime",
+      "key": " ",
+      "keyColor": "34"
+    },
+    {
+      "type": "custom",
+      "key": " ",
+      "format": "Intel Core i5-14400 (10) @ 4.70 GHz",
+      "keyColor": "34"
+    },
+    {
+      "type": "custom",
+      "key": "󱎓 ",
+      "format": "Intel Iris Xe Graphics [Integrated]",
+      "keyColor": "34"
+    },
+    {
+      "type": "custom",
+      "key": " ",
+      "format": "128.00 GiB / 512.00 GiB (\u001b[32m25%\u001b[0m) - btrfs",
+      "keyColor": "34"
+    },
+    {
+      "type": "custom",
+      "key": "󰩠 ",
+      "format": "192.168.1.100/24",
+      "keyColor": "34"
+    },
+    {
+      "type": "datetime",
+      "format": "{1}-{3}-{11}",
+      "key": " ",
+      "keyColor": "34"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m"
+    },
+    "break",
+    "break"
+  ]
+}
