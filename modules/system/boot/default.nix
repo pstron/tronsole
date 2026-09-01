@@ -10,6 +10,11 @@
       gfxmodeEfi = host.boot.grub.gfxmodeEfi;
       default = host.boot.grub.default;
       memtest86.enable = host.boot.grub.memtest86;
+      extraEntries = ''
+        menuentry "UEFI Firmware Settings" {
+          fwsetup
+        }
+      '';
     };
 
     efi = {
