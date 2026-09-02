@@ -25,7 +25,5 @@
 
   boot.supportedFilesystems = host.boot.supportedFilesystems;
 
-  # The system follows nixos-unstable, but the generic kernel package set is
-  # used instead of forcing linuxPackages_latest.
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 }
