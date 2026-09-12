@@ -1,0 +1,121 @@
+# Mihomo configuration for the tronsole NixOS host.
+#
+# Copy this file to /etc/mihomo/config.yaml and replace the subscription URL:
+#
+#   sudo install -Dm600 assets/mihomo/config.yaml.example /etc/mihomo/config.yaml
+#
+# The NixOS services.mihomo module loads this file as a systemd credential.
+
+mixed-port: 7890
+allow-lan: false
+bind-address: 127.0.0.1
+mode: rule
+log-level: info
+ipv6: false
+tcp-concurrent: true
+unified-delay: true
+
+external-controller: 127.0.0.1:9090
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+geodata-mode: true
+geodata-loader: memconservative
+geo-auto-update: true
+geo-update-interval: 24
+geox-url:
+  geoip: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat
+  geosite: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
+  mmdb: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb
+
+proxy-providers:
+  airport:
+    type: http
+    url: "https://YOUR-SUBSCRIPTION-URL"
+    path: ./providers/airport.yaml
+    interval: 86400
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 600
+      timeout: 5000
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    use:
+      - airport
+    proxies:
+      - AUTO
+      - DIRECT
+
+  - name: AUTO
+    type: url-test
+    use:
+      - airport
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+
+tun:
+  enable: true
+  device: Mihomo
+  stack: mixed
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+  strict-route: false
+  dns-hijack:
+    - any:53
+    - tcp://any:53
+  inet4-address:
+    - 198.18.0.1/30
+  route-exclude-address:
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+    - 127.0.0.0/8
+    - 169.254.0.0/16
+    - 224.0.0.0/4
+    - fc00::/7
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.0/16
+  fake-ip-filter:
+    - "*.lan"
+    - "*.local"
+    - "+.home.arpa"
+  default-nameserver:
+    - 223.5.5.5
+    - 223.6.6.6
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  fallback:
+    - tls://1.1.1.1
+    - tls://8.8.4.4
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+  proxy-server-nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+
+rules:
+  - DOMAIN,localhost,DIRECT
+  - DOMAIN-SUFFIX,local,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR6,::1/128,DIRECT,no-resolve
+  - IP-CIDR6,fc00::/7,DIRECT,no-resolve
+
+  - GEOSITE,cn,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY

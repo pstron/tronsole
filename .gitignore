@@ -1,0 +1,5 @@
+# Local secrets and generated runtime data.
+/secrets/
+*.secret
+*.secret.yaml
+*.secret.yml

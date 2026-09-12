@@ -2,7 +2,6 @@
   host,
   inputs,
   pkgs,
-  pkgsStable,
   ...
 }:
 
@@ -41,7 +40,7 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {
-      inherit host inputs pkgsStable;
+      inherit host inputs;
     };
 
     users.${userName} = {

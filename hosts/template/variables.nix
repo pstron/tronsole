@@ -84,9 +84,6 @@
 
   networking = {
     networkManager = true;
-    unmanagedInterfaces = [
-      "interface-name:FlClash"
-    ];
   };
 
   # Keep Flatpak declarations in the host description so another host can
@@ -106,7 +103,7 @@
   applications = {
     firefox = true;
     localsend = true;
-    flclash = true;
+    mihomo = true;
   };
 
 }
