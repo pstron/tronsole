@@ -37,9 +37,6 @@
       _ = "sudo ";
       pls = "sudo";
 
-      egrep = "rg --color=auto -E";
-      fgrep = "rg --color=auto -F";
-      grep = "rg --color=auto";
       gc1 = "git clone --recursive --depth=1";
       md = "mkdir -p";
 
