@@ -72,5 +72,10 @@
     changeDirWidget.command = "fd --type d";
   };
 
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.starship.enable = true;
 }
