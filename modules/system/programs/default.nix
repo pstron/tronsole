@@ -1,6 +1,10 @@
 { host, ... }:
 
 {
+  imports = [
+    ./dsh.nix
+  ];
+
   programs.firefox.enable = host.applications.firefox;
 
   programs.localsend = {

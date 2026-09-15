@@ -6,5 +6,6 @@
     ./desktop
     ./fastfetch
     ./neovim
+    ./dsh
   ];
 }

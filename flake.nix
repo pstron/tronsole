@@ -27,6 +27,11 @@
       inputs.nvchad-starter.follows = "nvchad-config";
     };
 
+    deepseek-harness = {
+      url = "github:moraxyc/deepseek-harness.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";

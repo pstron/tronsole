@@ -106,4 +106,12 @@
     mihomo = true;
   };
 
+  # DeepSeek Harness, served as a per-user web service. The web profile keeps
+  # $DSH_HOME (~/.dsh) shared with the CLI, so interactive sessions and
+  # credentials carry over.
+  dsh = {
+    enable = true;
+    port = 3080;
+  };
+
 }
