@@ -80,6 +80,9 @@
         let
           host = import ./hosts/${hostName}/variables.nix;
           system = host.system;
+
+          # Optional per-host config.
+          extraModule = nixpkgs.lib.optional (builtins.pathExists ./hosts/${hostName}/extra.nix) ./hosts/${hostName}/extra.nix;
         in
         nixpkgs.lib.nixosSystem {
           inherit system;
@@ -94,7 +97,8 @@
             inputs.catppuccin.nixosModules.catppuccin
             inputs.nix-flatpak.nixosModules.nix-flatpak
             inputs.home-manager.nixosModules.home-manager
-          ];
+          ]
+          ++ extraModule;
         };
     in
     {
