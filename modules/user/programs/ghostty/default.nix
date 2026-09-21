@@ -5,7 +5,7 @@
       background-opacity = 0.6;
       window-decoration = false;
       window-padding-x = 10;
-      font-family = "JetBrains Mono";
+      font-family = "JetBrainsMono Nerd Font";
       font-size = 11;
       font-feature = "-calt, -liga, -dlig";
       cursor-opacity = 0.8;
