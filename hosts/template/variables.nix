@@ -19,6 +19,13 @@
     ];
   };
 
+  # Binary caches for this host. modules/system/core applies them with mkForce.
+  nix = {
+    substituters = [ "https://cache.nixos.org" ];
+    # Only needed for a cache that is not signed by the official key.
+    trustedPublicKeys = [ ];
+  };
+
   theme = {
     flavor = "mocha";
     accent = "mauve";

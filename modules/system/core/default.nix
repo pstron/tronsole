@@ -16,19 +16,18 @@
       "flakes"
     ];
 
-    # Prefer nearby mirrors, then fall back to the official cache.
-    substituters = lib.mkForce [
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-      "https://mirror.sjtu.edu.cn/nix-channels/store"
-      "https://cache.nixos.org"
-    ];
+    # Host-owned: see hosts/<name>/variables.nix -> nix.substituters.
+    substituters = lib.mkForce host.nix.substituters;
 
     auto-optimise-store = true;
+  }
+  // lib.optionalAttrs (host.nix.trustedPublicKeys != [ ]) {
+    trusted-public-keys = host.nix.trustedPublicKeys;
   };
 
   programs.nh = {
     enable = true;
-    flake = "/home/${host.user.name}/tronsole";
+    flake = "${host.user.homeDirectory}/tronsole";
 
     clean = {
       enable = true;
