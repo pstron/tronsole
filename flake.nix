@@ -92,7 +92,8 @@
           };
 
           modules = [
-            ./hosts/${hostName}
+            ./modules/host
+            ./hosts/${hostName}/hardware-configuration.nix
 
             inputs.catppuccin.nixosModules.catppuccin
             inputs.nix-flatpak.nixosModules.nix-flatpak
@@ -100,12 +101,18 @@
           ]
           ++ extraModule;
         };
+
+      # Every directory under hosts/ that carries a variables.nix is a host,
+      # so adding or copying a host never requires editing this file.
+      hostNames = nixpkgs.lib.attrNames (
+        nixpkgs.lib.filterAttrs (
+          name: type: type == "directory" && builtins.pathExists (./hosts + "/${name}/variables.nix")
+        ) (builtins.readDir ./hosts)
+      );
     in
     {
       # NixOS hosts
-      nixosConfigurations = {
-        CHANGE-ME = mkHost "CHANGE-ME";
-      };
+      nixosConfigurations = nixpkgs.lib.genAttrs hostNames mkHost;
 
       # Development environment
       devShells = forEachSystem (
