@@ -1,6 +1,11 @@
-# Generated from nixos-generate-config for CHANGE-ME. Keep hardware-specific changes here.
-# and may be overwritten by future invocations.  Please make changes
-# to /etc/nixos/configuration.nix instead.
+# Machine-specific filesystem and kernel-module layout.
+#
+# Do not fill this in by hand. Generate the real file on the target machine:
+#
+#   sudo nixos-generate-config --show-hardware-config > hosts/<name>/hardware-configuration.nix
+#
+# The placeholder UUIDs below only keep `nix eval` working; they are not
+# bootable and must be replaced by the generated file.
 {
   config,
   lib,
@@ -14,43 +19,14 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "xhci_pci"
-    "usb_storage"
-    "sd_mod"
-    "sdhci_pci"
-  ];
+  boot.initrd.availableKernelModules = [ ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/CHANGE-ME-ROOT-UUID";
-    fsType = "btrfs";
-    options = [
-      "subvol=root"
-      "compress=zstd"
-    ];
-  };
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/CHANGE-ME-ROOT-UUID";
-    fsType = "btrfs";
-    options = [
-      "subvol=home"
-      "compress=zstd"
-    ];
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/CHANGE-ME-ROOT-UUID";
-    fsType = "btrfs";
-    options = [
-      "subvol=nix"
-      "noatime"
-      "compress=zstd"
-    ];
+    fsType = "ext4";
   };
 
   fileSystems."/boot" = {
@@ -62,10 +38,7 @@
     ];
   };
 
-  swapDevices = [
-    { device = "/dev/disk/by-uuid/CHANGE-ME-SWAP-UUID"; }
-  ];
+  swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

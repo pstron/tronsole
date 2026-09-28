@@ -1,49 +1,54 @@
+# Every machine-specific value of this host lives here. Nothing else in the
+# repository should need editing to make this host your own.
+#
+# Replace every CHANGE-ME. The directory name (hosts/<name>) is the flake
+# attribute name, i.e. `.#<name>`; keep `hostname` equal to it.
 {
-  # Host identity
-  hostname = "CHANGE-ME";
-  system = "x86_64-linux";
+  # --- identity -------------------------------------------------------------
+  hostname = "CHANGE-ME"; # networking.hostName
+  system = "x86_64-linux"; # or aarch64-linux
+  stateVersion = "26.05"; # the release this machine was installed with; never change it later
 
-  # NixOS and Home Manager state versions should normally stay at the
-  # version the machine was installed with.
-  stateVersion = "26.05";
-
-  # Primary account for this host.
+  # --- user ----------------------------------------------------------------
   user = {
-    name = "user";
+    name = "user"; # account name, also the Home Manager user
     description = "user";
     homeDirectory = "/home/user";
-    gitEmail = "you@example.com";
+    gitEmail = "you@example.com"; # programs.git; null to skip
     extraGroups = [
       "wheel"
       "networkmanager"
     ];
   };
 
-  # Binary caches for this host. modules/system/core applies them with mkForce.
+  # --- nix -----------------------------------------------------------------
   nix = {
+    # Binary caches, nearest first. modules/system/core applies them with mkForce.
     substituters = [ "https://cache.nixos.org" ];
     # Only needed for a cache that is not signed by the official key.
     trustedPublicKeys = [ ];
   };
 
+  # --- theme ---------------------------------------------------------------
   theme = {
-    flavor = "mocha";
+    flavor = "mocha"; # catppuccin: latte, frappe, macchiato, mocha
     accent = "mauve";
   };
 
+  # --- locale --------------------------------------------------------------
   locale = {
     timeZone = "UTC";
     defaultLocale = "en_US.UTF-8";
   };
 
-  # Display settings consumed by the Hyprland user module.
+  # --- desktop -------------------------------------------------------------
   desktop = {
     monitor = {
-      # Keep output empty to let Hyprland apply this as the fallback monitor.
+      # Leave output empty to make this the fallback rule in Hyprland.
       output = "";
       resolution = "1920x1080";
       refreshRate = 60;
-      scale = 1.33;
+      scale = 1.0;
     };
 
     keyboard = {
@@ -57,26 +62,27 @@
     };
 
     sddm = {
-      # SDDM's Wayland greeter is still more failure-prone than its X11 greeter.
-      # The login session itself may still be fully Wayland/Hyprland.
+      # SDDM's Wayland greeter is still more failure-prone than its X11
+      # greeter; the session itself can still be Wayland/Hyprland.
       waylandGreeter = false;
     };
   };
 
+  # --- laptop --------------------------------------------------------------
   laptop = {
-    enable = true;
+    enable = false; # true = TLP, upower, iio sensors, brightnessctl
 
-    # Conservative battery policy. Change these after confirming the firmware
-    # exposes a compatible battery name/charge-threshold interface.
+    # Change these only after confirming the firmware exposes a compatible
+    # battery name and charge-threshold interface.
     tlp = {
       startChargeThreshold = 40;
       stopChargeThreshold = 80;
     };
 
-    # Enable this if your hardware exposes an accelerometer/light sensor.
-    iio = true;
+    iio = false; # accelerometer / light sensor
   };
 
+  # --- boot ----------------------------------------------------------------
   boot = {
     supportedFilesystems = [ "ntfs" ];
     grub = {
@@ -89,36 +95,36 @@
     };
   };
 
+  # --- networking ----------------------------------------------------------
   networking = {
     networkManager = true;
   };
 
-  # Keep Flatpak declarations in the host description so another host can
-  # choose a different set without changing shared modules.
+  # --- flatpak -------------------------------------------------------------
   flatpak = {
-    enable = true;
+    enable = false;
     remote = {
       name = "flathub";
       location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
     };
     packages = [
-      "com.tencent.WeChat"
-      "com.qq.QQ"
+      # "com.tencent.WeChat"
+      # "com.qq.QQ"
     ];
   };
 
+  # --- applications --------------------------------------------------------
   applications = {
     firefox = true;
-    localsend = true;
-    mihomo = true;
+    localsend = false;
+    mihomo = false; # needs /etc/mihomo/config.yaml, see docs/mihomo.md
   };
 
-  # DeepSeek Harness, served as a per-user web service. The web profile keeps
-  # $DSH_HOME (~/.dsh) shared with the CLI, so interactive sessions and
-  # credentials carry over.
+  # --- deepseek harness (per-user web service) -----------------------------
+  # The web profile keeps $DSH_HOME (~/.dsh) shared with the CLI, so
+  # interactive sessions and credentials carry over.
   dsh = {
-    enable = true;
+    enable = false;
     port = 3080;
   };
-
 }
