@@ -1,7 +1,18 @@
-{ pkgs, host, ... }:
+{
+  pkgs,
+  host,
+  lib,
+  ...
+}:
 
 let
   monitor = host.desktop.monitor;
+
+  # hyprland.lua is a static file; the cursor size is injected here so it
+  # cannot drift away from home.pointerCursor.size.
+  hyprlandLua = lib.replaceStrings [ "@@CURSOR_SIZE@@" ] [ (toString host.desktop.cursor.size) ] (
+    builtins.readFile ./hyprland.lua
+  );
 in
 {
   home.packages = with pkgs; [
@@ -47,7 +58,7 @@ in
         },
       })
 
-      ${builtins.readFile ./hyprland.lua}
+      ${hyprlandLua}
     '';
 
   };

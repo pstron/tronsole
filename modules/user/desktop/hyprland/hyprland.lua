@@ -40,8 +40,8 @@ end)
 
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 
-hl.env("XCURSOR_SIZE", "18")
-hl.env("HYPRCURSOR_SIZE", "18")
+hl.env("XCURSOR_SIZE", "@@CURSOR_SIZE@@")
+hl.env("HYPRCURSOR_SIZE", "@@CURSOR_SIZE@@")
 hl.env("HYPRSHOT_DIR", "$HOME/Pictures/Screenshots")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
