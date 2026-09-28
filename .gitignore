@@ -3,3 +3,9 @@
 *.secret
 *.secret.yaml
 *.secret.yml
+
+# Build outputs and local history backups.
+/result
+/result-*
+/*.bundle
+/.direnv/
