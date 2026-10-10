@@ -32,6 +32,7 @@ in
   # CLI; the system-level service would start from an empty data directory.
   services.dsh = lib.mkIf host.dsh.enable {
     enable = true;
+    autoStart = false;
     profile = profile;
     port = host.dsh.port;
   };
