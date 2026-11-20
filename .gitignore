@@ -4,8 +4,7 @@
 *.secret.yaml
 *.secret.yml
 
-# Build outputs and local history backups.
+# Build outputs.
 /result
 /result-*
-/*.bundle
 /.direnv/
