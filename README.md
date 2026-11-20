@@ -29,7 +29,28 @@ about to change.
 - `pstron` — this repository's personal branch: `main` plus one real host
   directory. That directory is the only difference between the branches.
 
-Keep a personal branch current with `git checkout <branch> && git rebase main`.
+Shared changes (flake inputs, modules, docs) always land on `main` first.
+Update the personal branch by rebasing it onto `main`, never by merging:
+
+```bash
+# 1. Update the shared base.
+git switch main
+git pull --rebase
+nix flake update
+git add flake.lock
+git commit -m "chore(flake): update inputs"
+git push origin main
+
+# 2. Replay the personal host on top.
+git switch pstron
+git rebase main
+git diff --stat main..pstron   # only hosts/<name>/ should appear
+git push --force-with-lease origin pstron
+```
+
+A rebase rewrites the personal commit, so the second push needs
+`--force-with-lease`. Never commit `flake.lock` on `pstron`: it belongs to
+`main` and is carried over by the rebase.
 
 ## Manual steps
 
